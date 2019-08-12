@@ -1,0 +1,14 @@
+setwd("/Users/lukedai/Downloads/forensic-science/")
+library("tidyverse")
+library("broom")
+library('knitr')
+library('magrittr')
+library('car')
+library("forecast")
+
+data <- read.csv(file = "data1_full.csv", header = T)
+sub_data <- data[data$country == "Canada", ]
+write.csv(sub_data, file = "Canada.csv", row.names = FALSE)
+fit <- lm(gdpPercap ~ lifeExp, data = sub_data)
+tidy(fit )%>% kable(caption = "Coef", digits = 3)
+glance(fit) %>% kable(caption = "Other Information", digits = 3)
